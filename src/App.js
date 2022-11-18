@@ -1,8 +1,9 @@
+import LoginForm from "./LoginForm.js";
 
 function App() {
   return (
     <div className="App">
-      <p>Hello React</p>
+      <LoginForm />
     </div>
   );
 }
