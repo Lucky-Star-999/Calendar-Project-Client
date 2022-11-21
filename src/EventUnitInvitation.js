@@ -1,9 +1,27 @@
 import React from 'react';
 import { FiClock } from 'react-icons/fi';
+import axios from 'axios';
 import { Button, Card, Space, Typography } from 'antd';
 const { Title } = Typography;
 
-const EventUnitInvitation = (props) => {
+const email = "admin1@gmail.com";
+
+function EventUnitInvitation(props) {
+    const acceptInvitation = (event, eventid) => {
+        event.preventDefault();
+        axios.put(`http://localhost:9000/update/accept-invitation`, {eventid: eventid, email: email})
+            .then(res => {
+                window.location.reload(false);
+            });
+    }
+
+    const declineInvitation = (event, eventid) => {
+        axios.put(`http://localhost:9000/update/decline-invitation`, {eventid: eventid, email: email})
+            .then(res => {
+                window.location.reload(false);
+            });
+    }
+
     return (
         <Card bordered={false}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
@@ -24,10 +42,10 @@ const EventUnitInvitation = (props) => {
                 </p>
             </div>
             <Space>
-                <Button type="primary">
+                <Button type="primary" onClick={(e) => acceptInvitation(e, props.event.eventid)}>
                     Accept
                 </Button>
-                <Button>
+                <Button onClick={(e) => declineInvitation(e, props.event.eventid)}>
                     Decline
                 </Button>
             </Space>

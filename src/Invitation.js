@@ -56,7 +56,7 @@ listOfItems = [];
 function Invitation() {
     ////////////////////////////////////////
     const [data, setData] = useState("");
-    const email = 'admin3@gmail.com';
+    const email = 'admin1@gmail.com';
 
     function getListofDates(data) {
         let date = [];
@@ -119,6 +119,7 @@ function Invitation() {
                 }
 
                 listOfItems[i].events[count] = {};
+                listOfItems[i].events[count]["eventid"] = data[j].eventid;
                 listOfItems[i].events[count]["title"] = data[j].title;
                 listOfItems[i].events[count]["starttime"] = data[j].starttime;
                 listOfItems[i].events[count]["endtime"] = data[j].endtime;
