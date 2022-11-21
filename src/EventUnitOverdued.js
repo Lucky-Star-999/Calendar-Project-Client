@@ -1,13 +1,21 @@
 import React from 'react';
 import { FiClock } from 'react-icons/fi';
-import { Card, Space, Typography  } from 'antd';
+import axios from 'axios';
+import { Button, Card, Space, Typography } from 'antd';
 const { Title } = Typography;
 
-const EventUnitOverdued = (props) => {
+function EventUnitOverdued(props) {
+    const deleteEvent = (event, eventid) => {
+        axios.delete(`http://localhost:9000/event/${eventid}`)
+            .then(res => {
+                window.location.reload(false);
+            });
+    }
+
     return (
-        <Card style={{color: '#d9d9d9'}} bordered={false}>
+        <Card style={{ color: '#d9d9d9' }} bordered={false}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <Title level={2} style={{ margin: 0, color: '#d9d9d9'}}>{props.event.title}</Title>
+                <Title level={2} style={{ margin: 0, color: '#d9d9d9' }}>{props.event.title}</Title>
                 <div style={{ display: "flex", alignItems: "center" }}>
                     <Space>
                         <FiClock size={20} />
@@ -23,6 +31,9 @@ const EventUnitOverdued = (props) => {
                     <p>{props.event.duration}</p>
                 </p>
             </div>
+            <Button danger onClick={(e) => deleteEvent(e, props.event.eventid)}>
+                Delete
+            </Button>
 
         </Card>
     );

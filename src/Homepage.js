@@ -27,9 +27,9 @@ function getItem(label, key, icon, children, type) {
 }
 
 const items = [
-    getItem('Option 1', '1'),
-    getItem('Option 2', '2'),
-    getItem('Option 3', '3')
+    getItem('My schedule', '1'),
+    getItem('Invitations', '2'),
+    getItem('Profile', '3')
 ]
 
 let listOfItems = [
@@ -95,7 +95,7 @@ function Homepage() {
     }, []);
     ////////////////////////////////////////
 
-    
+
 
     //console.log(data);
 
@@ -109,7 +109,7 @@ function Homepage() {
 
         let count = 0;
 
-        for (let j=0; j<data.length; j++) {
+        for (let j = 0; j < data.length; j++) {
             if (data[j].startdate === dates[i]) {
                 if (data[j].isoverdued === 'true') {
                     //listOfItems[i]["date"] = dates[i] + ' (overdued)';
@@ -133,7 +133,7 @@ function Homepage() {
     let listOfItemsNotOverdued = [];
     let listOfItemsOverdued = [];
 
-    for (let i=0; i<listOfItems.length; i++) {
+    for (let i = 0; i < listOfItems.length; i++) {
         if (listOfItems[i].isoverdued === true) {
             listOfItemsOverdued.push(listOfItems[i]);
         } else {
@@ -166,11 +166,11 @@ function Homepage() {
                             minHeight: "100vh"
                         }}
                     >
-                        {listOfItems.length ? <EventGroups eventGroups={listOfItemsNotOverdued} /> : <Empty />}
+                        {listOfItemsNotOverdued.length ? <EventGroups eventGroups={listOfItemsNotOverdued} /> : <Empty />}
                         <Divider>
                             <Title level={1}>Overdued</Title>
                         </Divider>
-                        {listOfItems.length ? <EventGroupsOverdued eventGroups={listOfItemsOverdued} /> : <Empty />}
+                        {listOfItemsOverdued.length ? <EventGroupsOverdued eventGroups={listOfItemsOverdued} /> : <Empty />}
                     </Content>
                 </Layout>
             </Content>

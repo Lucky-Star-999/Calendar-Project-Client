@@ -1,9 +1,9 @@
-import Invitation from "./Invitation.js";
+import Homepage from "./Homepage.js";
 
 function App() {
   return (
     <div className="App">
-      <Invitation />
+      <Homepage />
     </div>
   );
 }

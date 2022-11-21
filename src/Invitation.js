@@ -27,9 +27,9 @@ function getItem(label, key, icon, children, type) {
 }
 
 const items = [
-    getItem('Option 1', '1'),
-    getItem('Option 2', '2'),
-    getItem('Option 3', '3')
+    getItem('My schedule', '1'),
+    getItem('Invitations', '2'),
+    getItem('Profile', '3')
 ]
 
 let listOfItems = [
@@ -152,7 +152,7 @@ function Invitation() {
                     <Sider className="site-layout-background" width={200}>
                         <Menu
                             mode="inline"
-                            defaultSelectedKeys={['1']}
+                            defaultSelectedKeys={['2']}
                             style={{
                                 height: '100%',
                             }}
@@ -166,11 +166,11 @@ function Invitation() {
                             minHeight: "100vh"
                         }}
                     >
-                        {listOfItems.length ? <EventGroupsInvitation eventGroups={listOfItemsNotOverdued} /> : <Empty />}
+                        {listOfItemsNotOverdued.length ? <EventGroupsInvitation eventGroups={listOfItemsNotOverdued} /> : <Empty />}
                         <Divider>
                             <Title level={1}>Overdued</Title>
                         </Divider>
-                        {listOfItems.length ? <EventGroupsOverdued eventGroups={listOfItemsOverdued} /> : <Empty />}
+                        {listOfItemsOverdued.length ? <EventGroupsOverdued eventGroups={listOfItemsOverdued} /> : <Empty />}
                     </Content>
                 </Layout>
             </Content>

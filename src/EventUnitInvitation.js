@@ -9,14 +9,14 @@ const email = "admin1@gmail.com";
 function EventUnitInvitation(props) {
     const acceptInvitation = (event, eventid) => {
         event.preventDefault();
-        axios.put(`http://localhost:9000/update/accept-invitation`, {eventid: eventid, email: email})
+        axios.put(`http://localhost:9000/update/accept-invitation`, { eventid: eventid, email: email })
             .then(res => {
                 window.location.reload(false);
             });
     }
 
     const declineInvitation = (event, eventid) => {
-        axios.put(`http://localhost:9000/update/decline-invitation`, {eventid: eventid, email: email})
+        axios.put(`http://localhost:9000/update/decline-invitation`, { eventid: eventid, email: email })
             .then(res => {
                 window.location.reload(false);
             });
