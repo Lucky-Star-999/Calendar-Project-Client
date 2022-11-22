@@ -5,6 +5,8 @@ import { Layout, Menu, Empty, Divider, Typography } from 'antd';
 import Logo from '../Logo';
 import Search from '../Search';
 
+import { useLocation, useNavigate } from "react-router-dom";
+
 import EventGroupsInvitationPending from './EventGroupsInvitationPending';
 import EventGroupsOverdued from './EventGroupsOverdued';
 const { Header, Content, Sider } = Layout;
@@ -27,10 +29,11 @@ function getItem(label, key, icon, children, type) {
 }
 
 const items = [
-    getItem('My schedule', '1'),
-    getItem('Invitations', '2'),
-    getItem('Pending Invitations', '3'),
-    getItem('Profile', '4')
+    getItem('My schedule', '/home'),
+    getItem('Invitations', '/invitations'),
+    getItem('Pending Invitations', '/pending-invitations'),
+    getItem('Profile', '4'),
+    getItem('Sign out', '/')
 ]
 
 let listOfItems = [
@@ -54,10 +57,22 @@ let listOfItems = [
 listOfItems = [];
 
 
-function InvitationPending() {
+function InvitationPending(route) {
     ////////////////////////////////////////
+    const navigate = useNavigate();
+    const { state } = useLocation();
+    //const email = state.email;
+
+    var email = "";
+
+    if (state === null) {
+        navigate('/');
+    } else {
+        email = state.email;
+    }
+
     const [data, setData] = useState("");
-    const email = 'admin1@gmail.com';
+    //const email = 'admin1@gmail.com';
 
     function getListofDates(data) {
         let date = [];
@@ -88,19 +103,25 @@ function InvitationPending() {
     }
 
     useEffect(() => {
-        // Runs only on the first render
-        axios.get(`http://localhost:9000/event/pending-invitation/${email}`)
-            .then(res => {
-                setData(res.data);
-            });
-    }, []);
+        if (email === '') {
+            navigate('/');
+        } else {
+            // Runs only on the first render
+            axios.get(`http://localhost:9000/event/pending-invitation/${email}`)
+                .then(res => {
+                    setData(res.data);
+                });
+        }
+    }, [email, navigate]);
     ////////////////////////////////////////
 
-    
+
 
     //console.log(data);
 
     const dates = getListofDates(data);
+
+    listOfItems = [];
 
     for (let i = 0; i < dates.length; i++) {
         listOfItems[i] = {};
@@ -110,7 +131,7 @@ function InvitationPending() {
 
         let count = 0;
 
-        for (let j=0; j<data.length; j++) {
+        for (let j = 0; j < data.length; j++) {
             if (data[j].startdate === dates[i]) {
                 if (data[j].isoverdued === 'true') {
                     //listOfItems[i]["date"] = dates[i] + ' (overdued)';
@@ -135,7 +156,7 @@ function InvitationPending() {
     let listOfItemsNotOverdued = [];
     let listOfItemsOverdued = [];
 
-    for (let i=0; i<listOfItems.length; i++) {
+    for (let i = 0; i < listOfItems.length; i++) {
         if (listOfItems[i].isoverdued === true) {
             listOfItemsOverdued.push(listOfItems[i]);
         } else {
@@ -154,9 +175,16 @@ function InvitationPending() {
                     <Sider className="site-layout-background" width={200}>
                         <Menu
                             mode="inline"
-                            defaultSelectedKeys={['3']}
+                            defaultSelectedKeys={['/pending-invitations']}
                             style={{
                                 height: '100%',
+                            }}
+                            onClick={({ key }) => {
+                                if (key === '/') {
+                                    navigate(key, { state: { email: '' } });
+                                } else {
+                                    navigate(key, { state: { email: email } });
+                                }
                             }}
                             items={items}
                         />

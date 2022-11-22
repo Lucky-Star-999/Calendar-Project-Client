@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Layout, Menu, Empty, Divider, Typography } from 'antd';
 import Logo from '../Logo';
 import Search from '../Search';
-
+import { useLocation, useNavigate } from "react-router-dom";
 import EventGroups from './EventGroups';
 import EventGroupsOverdued from './EventGroupsOverdued';
 const { Header, Content, Sider } = Layout;
@@ -27,10 +27,11 @@ function getItem(label, key, icon, children, type) {
 }
 
 const items = [
-    getItem('My schedule', '1'),
-    getItem('Invitations', '2'),
-    getItem('Pending Invitations', '3'),
-    getItem('Profile', '4')
+    getItem('My schedule', '/home'),
+    getItem('Invitations', '/invitations'),
+    getItem('Pending Invitations', '/pending-invitations'),
+    getItem('Profile', '4'),
+    getItem('Sign out', '/')
 ]
 
 let listOfItems = [
@@ -54,10 +55,22 @@ let listOfItems = [
 listOfItems = [];
 
 
+
+
 function Homepage() {
     ////////////////////////////////////////
+    const navigate = useNavigate();
+
     const [data, setData] = useState("");
-    const email = 'admin1@gmail.com';
+    const { state } = useLocation();
+
+    var email = "";
+
+    if (state === null) {
+        navigate('/');
+    } else {
+        email = state.email;
+    }
 
     function getListofDates(data) {
         let date = [];
@@ -88,12 +101,16 @@ function Homepage() {
     }
 
     useEffect(() => {
-        // Runs only on the first render
-        axios.get(`http://localhost:9000/event/email/${email}`)
-            .then(res => {
-                setData(res.data);
-            });
-    }, []);
+        if (email === '') {
+            navigate('/');
+        } else {
+            // Runs only on the first render
+            axios.get(`http://localhost:9000/event/email/${email}`)
+                .then(res => {
+                    setData(res.data);
+                });
+        }
+    }, [email, navigate]);
     ////////////////////////////////////////
 
 
@@ -101,6 +118,8 @@ function Homepage() {
     //console.log(data);
 
     const dates = getListofDates(data);
+
+    listOfItems = [];
 
     for (let i = 0; i < dates.length; i++) {
         listOfItems[i] = {};
@@ -131,6 +150,8 @@ function Homepage() {
         }
     }
 
+
+
     let listOfItemsNotOverdued = [];
     let listOfItemsOverdued = [];
 
@@ -141,6 +162,7 @@ function Homepage() {
             listOfItemsNotOverdued.push(listOfItems[i]);
         }
     }
+
 
     return (
         <Layout>
@@ -153,9 +175,16 @@ function Homepage() {
                     <Sider className="site-layout-background" width={200}>
                         <Menu
                             mode="inline"
-                            defaultSelectedKeys={['1']}
+                            defaultSelectedKeys={['/home']}
                             style={{
                                 height: '100%',
+                            }}
+                            onClick={({ key }) => {
+                                if (key === '/') {
+                                    navigate(key, { state: { email: '' } });
+                                } else {
+                                    navigate(key, { state: { email: email } });
+                                }
                             }}
                             items={items}
                         />
