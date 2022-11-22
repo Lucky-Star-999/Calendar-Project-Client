@@ -1,17 +1,17 @@
 import React from 'react';
 import { Space, Typography } from 'antd';
-import EventUnitInvitation from './EventUnitInvitation';
+import EventUnitOverdued from './EventUnitOverdued.js';
 const { Title } = Typography;
 
 
-const EventGroupInvitation = (props) => {
+const EventGroupOverdued = (props) => {
     return (
         <>
-            <Title level={2}>{props.eventGroup.date}</Title>
+            <Title level={2} style={{color: '#d9d9d9'}}>{props.eventGroup.date}</Title>
             <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
                 {
                     Object.keys(props.eventGroup.events).map((keyName, i) => (
-                        <EventUnitInvitation key={i} event={props.eventGroup.events[keyName]} />
+                        <EventUnitOverdued key={i} event={props.eventGroup.events[keyName]} />
                     ))
                 }
             </Space>
@@ -19,4 +19,4 @@ const EventGroupInvitation = (props) => {
     );
 }
 
-export default EventGroupInvitation;
+export default EventGroupOverdued;

@@ -2,10 +2,10 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Layout, Menu, Empty, Divider, Typography } from 'antd';
-import Logo from './Logo';
-import Search from './Search';
+import Logo from '../Logo';
+import Search from '../Search';
 
-import EventGroupsInvitation from './EventGroupsInvitation';
+import EventGroupsInvitationPending from './EventGroupsInvitationPending';
 import EventGroupsOverdued from './EventGroupsOverdued';
 const { Header, Content, Sider } = Layout;
 const { Title } = Typography;
@@ -29,7 +29,8 @@ function getItem(label, key, icon, children, type) {
 const items = [
     getItem('My schedule', '1'),
     getItem('Invitations', '2'),
-    getItem('Profile', '3')
+    getItem('Pending Invitations', '3'),
+    getItem('Profile', '4')
 ]
 
 let listOfItems = [
@@ -53,7 +54,7 @@ let listOfItems = [
 listOfItems = [];
 
 
-function Invitation() {
+function InvitationPending() {
     ////////////////////////////////////////
     const [data, setData] = useState("");
     const email = 'admin1@gmail.com';
@@ -88,7 +89,7 @@ function Invitation() {
 
     useEffect(() => {
         // Runs only on the first render
-        axios.get(`http://localhost:9000/event/invitation/${email}`)
+        axios.get(`http://localhost:9000/event/pending-invitation/${email}`)
             .then(res => {
                 setData(res.data);
             });
@@ -120,6 +121,7 @@ function Invitation() {
 
                 listOfItems[i].events[count] = {};
                 listOfItems[i].events[count]["eventid"] = data[j].eventid;
+                listOfItems[i].events[count]["email"] = email;
                 listOfItems[i].events[count]["title"] = data[j].title;
                 listOfItems[i].events[count]["starttime"] = data[j].starttime;
                 listOfItems[i].events[count]["endtime"] = data[j].endtime;
@@ -152,7 +154,7 @@ function Invitation() {
                     <Sider className="site-layout-background" width={200}>
                         <Menu
                             mode="inline"
-                            defaultSelectedKeys={['2']}
+                            defaultSelectedKeys={['3']}
                             style={{
                                 height: '100%',
                             }}
@@ -166,7 +168,7 @@ function Invitation() {
                             minHeight: "100vh"
                         }}
                     >
-                        {listOfItemsNotOverdued.length ? <EventGroupsInvitation eventGroups={listOfItemsNotOverdued} /> : <Empty />}
+                        {listOfItemsNotOverdued.length ? <EventGroupsInvitationPending eventGroups={listOfItemsNotOverdued} /> : <Empty />}
                         <Divider>
                             <Title level={1}>Overdued</Title>
                         </Divider>
@@ -183,4 +185,4 @@ function Invitation() {
 );*/
 
 
-export default Invitation;
+export default InvitationPending;

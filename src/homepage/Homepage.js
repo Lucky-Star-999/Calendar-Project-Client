@@ -2,8 +2,8 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Layout, Menu, Empty, Divider, Typography } from 'antd';
-import Logo from './Logo';
-import Search from './Search';
+import Logo from '../Logo';
+import Search from '../Search';
 
 import EventGroups from './EventGroups';
 import EventGroupsOverdued from './EventGroupsOverdued';
@@ -29,7 +29,8 @@ function getItem(label, key, icon, children, type) {
 const items = [
     getItem('My schedule', '1'),
     getItem('Invitations', '2'),
-    getItem('Profile', '3')
+    getItem('Pending Invitations', '3'),
+    getItem('Profile', '4')
 ]
 
 let listOfItems = [
