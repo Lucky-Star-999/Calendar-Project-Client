@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Layout, Menu, Empty, Divider, Typography } from 'antd';
+import { Layout, Menu, Empty, Divider, Typography, Button } from 'antd';
 import Logo from '../Logo';
 import Search from '../Search';
 import { useNavigate } from "react-router-dom";
@@ -30,7 +30,7 @@ const items = [
     getItem('My schedule', '/home'),
     getItem('Invitations', '/invitations'),
     getItem('Pending Invitations', '/pending-invitations'),
-    getItem('Profile', '4'),
+    getItem('Profile', '/profile'),
     getItem('Sign out', '/')
 ]
 
@@ -64,6 +64,10 @@ function Homepage() {
     const [data, setData] = useState("");
 
     const email = localStorage.getItem('calendar-booking-system-email');
+
+    const createNewEvent = () => {
+        navigate('/create-new-event');
+      }
 
     function getListofDates(data) {
         let date = [];
@@ -188,6 +192,12 @@ function Homepage() {
                             minHeight: "100vh"
                         }}
                     >
+                        <div style={{display: "flex", justifyContent: "end", alignItems: "center"}}>
+                            <Button type="primary" size="large" onClick={createNewEvent}>
+                                Create New Event
+                            </Button>
+                        </div>
+
                         {listOfItemsNotOverdued.length ? <EventGroups eventGroups={listOfItemsNotOverdued} /> : <Empty />}
                         <Divider>
                             <Title level={1}>Overdued</Title>

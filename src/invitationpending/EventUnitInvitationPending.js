@@ -4,10 +4,8 @@ import axios from 'axios';
 import { Button, Card, Space, Typography } from 'antd';
 const { Title } = Typography;
 
-const email = "admin1@gmail.com";
-
 function EventUnitInvitation(props) {
-    const acceptInvitation = (event, eventid) => {
+    const acceptInvitation = (event, eventid, email) => {
         event.preventDefault();
         axios.put(`http://localhost:9000/update/accept-invitation`, { eventid: eventid, email: email })
             .then(res => {
@@ -15,7 +13,7 @@ function EventUnitInvitation(props) {
             });
     }
 
-    const declineInvitation = (event, eventid) => {
+    const declineInvitation = (event, eventid, email) => {
         axios.put(`http://localhost:9000/update/decline-invitation`, { eventid: eventid, email: email })
             .then(res => {
                 window.location.reload(false);
@@ -42,10 +40,10 @@ function EventUnitInvitation(props) {
                 </p>
             </div>
             <Space>
-                <Button type="primary" onClick={(e) => acceptInvitation(e, props.event.eventid)}>
+                <Button type="primary" onClick={(e) => acceptInvitation(e, props.event.eventid, props.event.email)}>
                     Accept
                 </Button>
-                <Button onClick={(e) => declineInvitation(e, props.event.eventid)}>
+                <Button onClick={(e) => declineInvitation(e, props.event.eventid, props.event.email)}>
                     Decline
                 </Button>
             </Space>

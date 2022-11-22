@@ -32,7 +32,7 @@ const items = [
     getItem('My schedule', '/home'),
     getItem('Invitations', '/invitations'),
     getItem('Pending Invitations', '/pending-invitations'),
-    getItem('Profile', '4'),
+    getItem('Profile', '/profile'),
     getItem('Sign out', '/')
 ]
 
