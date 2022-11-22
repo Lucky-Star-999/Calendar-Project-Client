@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Layout, Menu, Empty, Divider, Typography } from 'antd';
 import Logo from '../Logo';
 import Search from '../Search';
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import EventGroups from './EventGroups';
 import EventGroupsOverdued from './EventGroupsOverdued';
 const { Header, Content, Sider } = Layout;
@@ -62,15 +62,8 @@ function Homepage() {
     const navigate = useNavigate();
 
     const [data, setData] = useState("");
-    const { state } = useLocation();
 
-    var email = "";
-
-    if (state === null) {
-        navigate('/');
-    } else {
-        email = state.email;
-    }
+    const email = localStorage.getItem('calendar-booking-system-email');
 
     function getListofDates(data) {
         let date = [];
@@ -101,7 +94,7 @@ function Homepage() {
     }
 
     useEffect(() => {
-        if (email === '') {
+        if (email === null) {
             navigate('/');
         } else {
             // Runs only on the first render
@@ -112,7 +105,6 @@ function Homepage() {
         }
     }, [email, navigate]);
     ////////////////////////////////////////
-
 
 
     //console.log(data);
@@ -163,7 +155,6 @@ function Homepage() {
         }
     }
 
-
     return (
         <Layout>
             <Header style={{ padding: '25px', display: "flex", justifyContent: "space-between", alignItems: "center" }}>
@@ -181,6 +172,7 @@ function Homepage() {
                             }}
                             onClick={({ key }) => {
                                 if (key === '/') {
+                                    localStorage.clear();
                                     navigate(key, { state: { email: '' } });
                                 } else {
                                     navigate(key, { state: { email: email } });

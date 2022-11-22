@@ -5,7 +5,7 @@ import { Layout, Menu, Empty, Divider, Typography } from 'antd';
 import Logo from '../Logo';
 import Search from '../Search';
 
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import EventGroups from './EventGroups';
 import EventGroupsOverdued from './EventGroupsOverdued';
@@ -62,16 +62,9 @@ function Invitation() {
     const [data, setData] = useState("");
 
     const navigate = useNavigate();
-    const { state } = useLocation();
     //const email = state.email;
 
-    var email = "";
-
-    if (state === null) {
-        navigate('/');
-    } else {
-        email = state.email;
-    }
+    const email = localStorage.getItem('calendar-booking-system-email');
 
     function getListofDates(data) {
         let date = [];
@@ -102,7 +95,7 @@ function Invitation() {
     }
 
     useEffect(() => {
-        if (email === '') {
+        if (email === null) {
             navigate('/');
         } else {
             // Runs only on the first render
@@ -181,6 +174,7 @@ function Invitation() {
                             }}
                             onClick={({ key }) => {
                                 if (key === '/') {
+                                    localStorage.clear();
                                     navigate(key, { state: { email: '' } });
                                 } else {
                                     navigate(key, { state: { email: email } });
