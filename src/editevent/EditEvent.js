@@ -30,15 +30,18 @@ const items = [
     getItem('Sign out', '/')
 ]
 
-const CreateNewEvent = () => {
+const EditEvent = () => {
 
     const navigate = useNavigate();
     const email = localStorage.getItem('calendar-booking-system-email');
+    const eventid = localStorage.getItem('calendar-booking-system-eventid');
     const [title, setTitle] = useState("");
     const [starttime, setStarttime] = useState("1300");
     const [endtime, setEndtime] = useState("");
     const [guestemails, setGuestemails] = useState("");
     const [description, setDescription] = useState("");
+
+    const [form] = Form.useForm();
 
     const home = () => {
         navigate('/home');
@@ -48,22 +51,82 @@ const CreateNewEvent = () => {
         if (email === null) {
             navigate('/');
         } else {
+            window.scrollTo(0, 0);
+
             // Runs only on the first render
+            axios.get(`http://localhost:9000/event/eventid/${eventid}`)
+                .then(res => {
+                    //setData(res.data);
+                    return res.data[0];
+                }).then(data => {
+
+                    
+
+                    let startDateAndTime = data.starttime.split(" ");
+
+                    let endDateAndTime = data.endtime.split(" ");
+
+                    let starttime = startDateAndTime[0][6] + startDateAndTime[0][7] + startDateAndTime[0][8] + startDateAndTime[0][9];
+                    starttime += '-' + startDateAndTime[0][3] + startDateAndTime[0][4];
+                    starttime += '-' + startDateAndTime[0][0] + startDateAndTime[0][1];
+                    starttime += 'T' + startDateAndTime[1];
+
+                    let endtime = endDateAndTime[0][6] + endDateAndTime[0][7] + endDateAndTime[0][8] + endDateAndTime[0][9];
+                    endtime += '-' + endDateAndTime[0][3] + endDateAndTime[0][4];
+                    endtime += '-' + endDateAndTime[0][0] + endDateAndTime[0][1];
+                    endtime += 'T' + endDateAndTime[1];
+                    
+                    if (data.description === 'null') {
+                        data.description= "";
+                    }
+
+                    if (data.guestemails === 'null') {
+                        data.guestemails= "";
+                    }
+
+
+
+                    form.setFieldsValue({
+                        title: data.title,
+                        starttime: starttime,
+                        endtime: endtime,
+
+                        description: data.description,
+                        guestemails: data.guestemails
+                    });
+
+                    setTitle(data.title);
+                    setStarttime(starttime);
+                    setEndtime(endtime);
+                    setGuestemails(data.guestemails || "");
+                    setDescription(data.description || "");
+                });
 
         }
-    }, [email, navigate]);
+    }, [form, email, navigate, eventid]);
 
     const handleSubmit = (event) => {
         //event.preventDefault();
 
-        axios.post(`http://localhost:9000/event`, {
-            hostemail: email, title: title, starttime: starttime, endtime: endtime,
-            description: description, target: "public", guestemails: guestemails })
+        // Format starttime, endtime
+        let startDateAndTime = starttime.split("T");
+        let formattedStarttime = startDateAndTime[0] + ' ' + startDateAndTime[1] + ':00+07';
+        let endDateAndTime = endtime.split("T");
+        let formattedEndtime = endDateAndTime[0] + ' ' + endDateAndTime[1] + ':00+07';
+
+
+        
+
+        axios.put(`http://localhost:9000/event`, {
+            eventid: eventid, title: title, starttime: formattedStarttime, endtime: formattedEndtime,
+            description: description, guestemails: guestemails })
             .then(res => {
-                console.log(res.data);
-                navigate('/create-new-event/result');
+                navigate('/home');
             });
+
     }
+
+    
 
 
     return (
@@ -100,7 +163,7 @@ const CreateNewEvent = () => {
                             minHeight: "100vh"
                         }}
                     >
-                        <Title level={2} style={{ margin: 0 }}>Create New Event</Title>
+                        <Title level={2} style={{ margin: 0 }}>Edit Event</Title>
 
                         <div style={{
                             minHeight: "100vh",
@@ -111,6 +174,7 @@ const CreateNewEvent = () => {
                             }}
                                 labelCol={{ span: 4 }}
                                 wrapperCol={{ span: 14 }}
+                                form={form}
                             >
 
                                 <Form.Item
@@ -193,4 +257,4 @@ const CreateNewEvent = () => {
     );
 };
 
-export default CreateNewEvent;
+export default EditEvent;

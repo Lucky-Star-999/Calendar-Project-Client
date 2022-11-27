@@ -1,14 +1,17 @@
 import React from 'react';
 import { FiClock } from 'react-icons/fi';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 import { Button, Card, Space, Typography } from 'antd';
 const { Title } = Typography;
 
 function EventUnit(props) {
 
+    const navigate = useNavigate();
+
     const handleSubmit = (event, eventid) => {
-        console.log(eventid);
-        alert('Event Edit/Detail is coming soon!');
+        localStorage.setItem('calendar-booking-system-eventid', eventid);
+        navigate("/edit-event");
     }
 
     const deleteEvent = (event, eventid) => {

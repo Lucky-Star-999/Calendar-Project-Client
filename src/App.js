@@ -5,6 +5,7 @@ import Invitation from "./invitation/Invitation.js";
 import Login from "./user/Login.js";
 import CreateNewEvent from "./createnewevent/CreateNewEvent.js";
 import CreateEventResult from "./createnewevent/CreateEventResult.js";
+import EditEvent from "./editevent/EditEvent.js";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/pending-invitations" element={<InvitationPending />}></Route>
           <Route path="/create-new-event" element={<CreateNewEvent />}></Route>
           <Route path="/create-new-event/result" element={<CreateEventResult />}></Route>
+          <Route path="/edit-event" element={<EditEvent />}></Route>
         </Routes>
       </BrowserRouter>
     </div>
