@@ -8,6 +8,7 @@ import CreateUserResult from "./user/CreateUserResult.js";
 import CreateNewEvent from "./createnewevent/CreateNewEvent.js";
 import CreateEventResult from "./createnewevent/CreateEventResult.js";
 import EditEvent from "./editevent/EditEvent.js";
+import Profile from "./profile/Profile.js";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/edit-event" element={<EditEvent />}></Route>
           <Route path="/create-user" element={<CreateNewUser />}></Route>
           <Route path="/create-user/result" element={<CreateUserResult />}></Route>
+          <Route path="/profile" element={<Profile />}></Route>
         </Routes>
       </BrowserRouter>
     </div>
