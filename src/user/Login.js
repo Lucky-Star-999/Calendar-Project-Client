@@ -8,10 +8,15 @@ import background from "./bg.svg";
 import LoginLogo from "./LoginLogo.js";
 
 const Login = () => {
+  
 
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const createUser = () => {
+    navigate('/create-user');
+  }
 
   localStorage.clear();
 
@@ -75,11 +80,8 @@ const Login = () => {
             <Button type="primary" htmlType="submit">
               Submit
             </Button>
-            <Button>
+            <Button onClick={createUser}>
               Create an account
-            </Button>
-            <Button>
-              Forgot your password?
             </Button>
           </Space>
 
