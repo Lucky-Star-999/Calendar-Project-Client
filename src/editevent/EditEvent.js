@@ -3,8 +3,8 @@ import { Button, Form, Input, Space } from 'antd';
 
 import { Layout, Menu, Typography } from 'antd';
 
-import Logo from '../Logo';
-import Search from '../Search';
+import Logo from '../img/Logo';
+import Search from '../img/Search';
 import { useState } from 'react';
 import TextArea from 'antd/es/input/TextArea';
 import axios from 'axios';

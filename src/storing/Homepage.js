@@ -1,18 +1,19 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Layout, Menu, Empty, Divider, Typography, Input } from 'antd';
+import {getAllEvents} from './eventsRenderHandle';
+import { Layout, Menu, Empty, Divider, Typography, Button, Input } from 'antd';
 import Logo from '../img/Logo';
 //import Search from '../img/Search';
-
 import { useNavigate } from "react-router-dom";
-
-import EventGroupsInvitationPending from './EventGroupsInvitationPending';
+import EventGroups from './EventGroups';
 import EventGroupsOverdued from './EventGroupsOverdued';
 const { Header, Content, Sider } = Layout;
 const { Title } = Typography;
 
 const { Search } = Input;
+
+
 
 
 
@@ -59,25 +60,21 @@ let listOfItems = [
 listOfItems = [];
 
 
-function InvitationPending(route) {
+
+
+function Homepage() {
     ////////////////////////////////////////
     const navigate = useNavigate();
-    //const email = state.email;
 
-    const [keySearch, setKeySearch] = useState("");
+    const [data, setData] = useState("");
 
     const email = localStorage.getItem('calendar-booking-system-email');
 
-    const onSearch = (value) => {
-        setKeySearch(value);
-    }
+    const createNewEvent = () => {
+        navigate('/create-new-event');
+      }
 
-
-
-    const [data, setData] = useState("");
-    //const email = 'admin1@gmail.com';
-
-    function getListofDates(data) {
+    /*function getListofDates(data) {
         let date = [];
 
         for (let i = 0; i < data.length; i++) {
@@ -103,6 +100,10 @@ function InvitationPending(route) {
         newDate = [...new Set(newDate)];
 
         return newDate;
+    }*/
+
+    const onSearch = (value) => {
+        console.log(value);
     }
 
     useEffect(() => {
@@ -110,19 +111,18 @@ function InvitationPending(route) {
             navigate('/');
         } else {
             // Runs only on the first render
-            axios.get(`http://localhost:9000/event/pending-invitation`, { params: { email: email, keySearch: keySearch } })
+            axios.get(`http://localhost:9000/event/email/${email}`)
                 .then(res => {
                     setData(res.data);
                 });
         }
-    }, [email, keySearch, navigate]);
+    }, [email, navigate]);
     ////////////////////////////////////////
-
 
 
     //console.log(data);
 
-    const dates = getListofDates(data);
+    /*const dates = getListofDates(data);
 
     listOfItems = [];
 
@@ -145,7 +145,6 @@ function InvitationPending(route) {
 
                 listOfItems[i].events[count] = {};
                 listOfItems[i].events[count]["eventid"] = data[j].eventid;
-                listOfItems[i].events[count]["email"] = email;
                 listOfItems[i].events[count]["title"] = data[j].title;
                 listOfItems[i].events[count]["starttime"] = data[j].starttime;
                 listOfItems[i].events[count]["endtime"] = data[j].endtime;
@@ -154,7 +153,11 @@ function InvitationPending(route) {
             }
             count++;
         }
-    }
+    }*/
+
+    // getAllEvents
+    listOfItems = getAllEvents(listOfItems, data);
+
 
     let listOfItemsNotOverdued = [];
     let listOfItemsOverdued = [];
@@ -178,7 +181,7 @@ function InvitationPending(route) {
                     <Sider className="site-layout-background" width={200}>
                         <Menu
                             mode="inline"
-                            defaultSelectedKeys={['/pending-invitations']}
+                            defaultSelectedKeys={['/home']}
                             style={{
                                 height: '100%',
                             }}
@@ -200,7 +203,13 @@ function InvitationPending(route) {
                             minHeight: "100vh"
                         }}
                     >
-                        {listOfItemsNotOverdued.length ? <EventGroupsInvitationPending eventGroups={listOfItemsNotOverdued} /> : <Empty />}
+                        <div style={{display: "flex", justifyContent: "end", alignItems: "center"}}>
+                            <Button type="primary" size="large" onClick={createNewEvent}>
+                                Create New Event
+                            </Button>
+                        </div>
+
+                        {listOfItemsNotOverdued.length ? <EventGroups eventGroups={listOfItemsNotOverdued} /> : <Empty />}
                         <Divider>
                             <Title level={1}>Overdued</Title>
                         </Divider>
@@ -217,4 +226,4 @@ function InvitationPending(route) {
 );*/
 
 
-export default InvitationPending;
+export default Homepage;

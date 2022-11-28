@@ -3,8 +3,8 @@ import { Button, Form, Input, Space, Modal } from 'antd';
 
 import { Layout, Typography } from 'antd';
 
-import Logo from '../Logo';
-import Search from '../Search';
+import Logo from '../img/Logo';
+import Search from '../img/Search';
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';

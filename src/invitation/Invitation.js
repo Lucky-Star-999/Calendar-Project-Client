@@ -1,9 +1,10 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Layout, Menu, Empty, Divider, Typography } from 'antd';
-import Logo from '../Logo';
-import Search from '../Search';
+import { getAllEvents } from './eventsRenderHandle';
+import { Layout, Menu, Empty, Divider, Typography, Input } from 'antd';
+import Logo from '../img/Logo';
+//import Search from '../img/Search';
 
 import { useNavigate } from "react-router-dom";
 
@@ -11,6 +12,8 @@ import EventGroups from './EventGroups';
 import EventGroupsOverdued from './EventGroupsOverdued';
 const { Header, Content, Sider } = Layout;
 const { Title } = Typography;
+
+const { Search } = Input;
 
 
 
@@ -63,10 +66,15 @@ function Invitation() {
 
     const navigate = useNavigate();
     //const email = state.email;
+    const [keySearch, setKeySearch] = useState("");
 
     const email = localStorage.getItem('calendar-booking-system-email');
 
-    function getListofDates(data) {
+    const onSearch = (value) => {
+        setKeySearch(value);
+    }
+
+    /*function getListofDates(data) {
         let date = [];
 
         for (let i = 0; i < data.length; i++) {
@@ -92,27 +100,27 @@ function Invitation() {
         newDate = [...new Set(newDate)];
 
         return newDate;
-    }
+    }*/
 
     useEffect(() => {
         if (email === null) {
             navigate('/');
         } else {
             // Runs only on the first render
-            axios.get(`http://localhost:9000/event/invitation/email/${email}`)
+            axios.get(`http://localhost:9000/event/invitation/email`, { params: { email: email, keySearch: keySearch } })
                 .then(res => {
                     setData(res.data);
                 });
         }
 
-    }, [email, navigate]);
+    }, [email, navigate, keySearch]);
     ////////////////////////////////////////
 
 
 
     //console.log(data);
 
-    const dates = getListofDates(data);
+    /*const dates = getListofDates(data);
 
     listOfItems = [];
 
@@ -144,10 +152,13 @@ function Invitation() {
             }
             count++;
         }
-    }
+    }*/
 
-    let listOfItemsNotOverdued = [];
-    let listOfItemsOverdued = [];
+    listOfItems = getAllEvents(listOfItems, data, email);       // Get all events
+    let listOfItemsNotOverdued = [];                            // Get not overdued events
+    let listOfItemsOverdued = [];                               // Get overdued events
+
+
 
     for (let i = 0; i < listOfItems.length; i++) {
         if (listOfItems[i].isoverdued === true) {
@@ -161,7 +172,7 @@ function Invitation() {
         <Layout>
             <Header style={{ padding: '25px', display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                 <Logo />
-                <Search />
+                <Search placeholder="Search by title ..." onSearch={onSearch} style={{ width: 300 }} />
             </Header>
             <Content>
                 <Layout>
