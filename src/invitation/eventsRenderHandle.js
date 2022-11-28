@@ -1,35 +1,60 @@
+// The javascript file is to convert response data from API to formatted data for clients
+/*Data sample:
+    {
+        "eventid": "event1",
+        "email": "admin1@gmail.com",
+        "title": "Event One",
+        "description": "First Event!!!",
+        "starttime": "07:00 AM",
+        "endtime": "10:00 AM",
+        "duration": "03h00",
+        "startdate": "05/12/2022",
+        "isoverdued": "false",
+        "ishost": "1"
+    }
+*/
+
+// Return list of dates with ascending order
+// Ex: input: [20/11/2022, 11/11/2022, 11/01/2022, 20/11/2022, 11/11/2022]
+// -> Output: [11/01/2022, 11/11/2022, 20/11/2022]
 function getListofDates(data) {
     let date = [];
 
+    // Push all startdate into an array
+    // Ex: [20/11/2022, 11/11/2022, 11/01/2022, 20/11/2022, 11/11/2022]
     for (let i = 0; i < data.length; i++) {
         date.push(data[i].startdate);
     }
 
-
     let arr = [];
-
     let newDate = [];
 
-
+    // Format date into a string for comparison
+    // 20/11/2022 -> 20221120
+    // 11/01/2022 -> 20220111
+    // -> 20220111 < 20221120 -> 11/01/2022 < 20/11/2022
     for (let i = 0; i < date.length; i++) {
         arr.push(date[i].slice(6, 10) + date[i].slice(3, 5) + date[i].slice(0, 2));
     }
 
+    // Sort all date
+    // Output: [20220111, 20221111, 20221111, 20221120, 20221120]
     arr = arr.sort();
 
+    // Return original format
+    // Output: [11/01/2022, 11/11/2022, 11/11/2022, 20/11/2022, 20/11/2022]
     for (let i = 0; i < date.length; i++) {
         newDate.push(arr[i].slice(6, 8) + '/' + arr[i].slice(4, 6) + '/' + arr[i].slice(0, 4));
     }
 
+    // Remove duplicate
+    // Output: [11/01/2022, 11/11/2022, 20/11/2022]
     newDate = [...new Set(newDate)];
 
-    return newDate;
+    return newDate;         // Output: [11/01/2022, 11/11/2022, 20/11/2022]
 }
 
-function eventRenderHandle() {
-    //alert('Hello');
-}
-
+// Arrange all events by date
 function getAllEvents(listOfItems, data, email) {
     const dates = getListofDates(data);
 
@@ -68,4 +93,4 @@ function getAllEvents(listOfItems, data, email) {
     return listOfItems;
 }
 
-export { eventRenderHandle, getListofDates, getAllEvents };
+export { getListofDates, getAllEvents };
