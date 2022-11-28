@@ -1,15 +1,20 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+
+// Redirect
+import { useNavigate } from 'react-router-dom';
+
+// Axios for API
+import axios from 'axios';
+
+// Import Ant Design
 import { Button, Form, Input, Space, Layout, Menu, Typography } from 'antd';
 import Logo from '../img/Logo';
 import Search from '../img/Search';
-import { useState } from 'react';
 import TextArea from 'antd/es/input/TextArea';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-
 const { Header, Content, Sider } = Layout;
 const { Title } = Typography;
 
+// Function for menu in Ant Design
 function getItem(label, key, icon, children, type) {
     return {
         key,
@@ -20,6 +25,7 @@ function getItem(label, key, icon, children, type) {
     };
 }
 
+// Items for menu in Ant Design
 const items = [
     getItem('My schedule', '/home'),
     getItem('Invitations', '/invitations'),
@@ -28,6 +34,7 @@ const items = [
     getItem('Sign out', '/')
 ]
 
+// CreateNewEvent component
 const CreateNewEvent = () => {
 
     const navigate = useNavigate();

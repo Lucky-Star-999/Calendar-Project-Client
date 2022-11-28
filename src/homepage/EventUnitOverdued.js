@@ -1,9 +1,16 @@
 import React from 'react';
-import { FiClock } from 'react-icons/fi';
+
+// Axios for API
 import axios from 'axios';
+
+// Import clock icon 
+import { FiClock } from 'react-icons/fi';
+
+// Import Ant Design
 import { Button, Card, Space, Typography } from 'antd';
 const { Title } = Typography;
 
+// EventUnitOverdued component
 function EventUnitOverdued(props) {
     const deleteEvent = (event, eventid) => {
         axios.delete(`http://localhost:9000/event/${eventid}`)

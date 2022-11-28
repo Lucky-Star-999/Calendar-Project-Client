@@ -1,9 +1,14 @@
 import React from 'react';
-import { Space } from 'antd';
+
+// Import other components
 import EventGroupInvitationPending from './EventGroupInvitationPending';
 
+// Import Ant Design
+import { Space } from 'antd';
 
 
+
+// EventGroupsInvitationPending component
 const EventGroupsInvitationPending = (props) => {
     return (
         <Space direction="vertical" size="middle" style={{ display: 'flex' }}>

@@ -1,7 +1,12 @@
 import React from 'react';
-import { Button, Result } from 'antd';
+
+// Redirect
 import { useNavigate } from "react-router-dom";
 
+// Import Ant Design
+import { Button, Result } from 'antd';
+
+// CreateEventResult component
 function CreateEventResult() {
   const navigate = useNavigate();
 

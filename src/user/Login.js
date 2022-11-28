@@ -1,15 +1,23 @@
-import React from 'react';
-import { Button, Form, Input, Space, Modal } from 'antd';
+import React, { useState } from 'react';
 
-import { useState } from 'react';
+// Axios for API
 import axios from 'axios';
+
+// Redirect
 import { useNavigate } from "react-router-dom";
+
+// Import Login background
 import background from "./bg.svg";
+
+// Import Login logo
 import LoginLogo from "./LoginLogo.js";
 
+// Import Ant Design
+import { Button, Form, Input, Space, Modal } from 'antd';
+
+
+// Login component
 const Login = () => {
-
-
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

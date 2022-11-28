@@ -1,9 +1,14 @@
 import React from 'react';
-import { Space, Typography } from 'antd';
+
+// Import other components
 import EventUnit from './EventUnit';
+
+// Import Ant Design
+import { Space, Typography } from 'antd';
 const { Title } = Typography;
 
 
+// EventGroup component
 const EventGroup = (props) => {
     return (
         <>

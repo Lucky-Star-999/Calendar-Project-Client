@@ -1,20 +1,30 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-import { getAllEvents } from './eventsRenderHandle';
-import { Layout, Menu, Empty, Divider, Typography, Input } from 'antd';
-import Logo from '../img/Logo';
-//import Search from '../img/Search';
+import React, { useState, useEffect } from 'react';
 
+// Axios for API
+import axios from 'axios';
+
+// Redirect
 import { useNavigate } from "react-router-dom";
 
+// Import javascript file for handle event render
+import { getAllEvents } from './eventsRenderHandle';
+
+// Import other components
 import EventGroupsInvitationPending from './EventGroupsInvitationPending';
 import EventGroupsOverdued from './EventGroupsOverdued';
+
+// Import app logo
+import Logo from '../img/Logo';
+
+// Import Ant Design
+import { Layout, Menu, Empty, Divider, Typography, Input } from 'antd';
 const { Header, Content, Sider } = Layout;
 const { Title } = Typography;
-
 const { Search } = Input;
 
+
+
+// Function for menu in Ant Design
 function getItem(label, key, icon, children, type) {
     return {
         key,
@@ -25,6 +35,7 @@ function getItem(label, key, icon, children, type) {
     };
 }
 
+// Items for menu in Ant Design
 const items = [
     getItem('My schedule', '/home'),
     getItem('Invitations', '/invitations'),
@@ -33,26 +44,9 @@ const items = [
     getItem('Sign out', '/')
 ]
 
-let listOfItems = [
-    {
-        date: "19/11/2022",
-        events: [
-            { title: "Ford", starttime: "Mustang", endtime: "Mustang", description: "des", duration: "10p" },
-            { title: "Ford2", starttime: "Mustang2", endtime: "Mustang2", description: "des2", duration: "10p" },
-            { title: "Ford3", starttime: "Mustang2", endtime: "Mustang2", description: "des2", duration: "10p" }
-        ]
-    },
-    {
-        date: "20/11/2022",
-        events: [
-            { title: "Ford", starttime: "Mustang", endtime: "Mustang", description: "des", duration: "10p" },
-            { title: "Ford2", starttime: "Mustang2", endtime: "Mustang2", description: "des2", duration: "10p" }
-        ]
-    }
-]
+let listOfItems = [];
 
-listOfItems = [];
-
+// InvitationPending component
 function InvitationPending(route) {
     const navigate = useNavigate();
 

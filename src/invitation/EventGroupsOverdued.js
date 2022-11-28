@@ -1,9 +1,14 @@
 import React from 'react';
-import { Space } from 'antd';
+
+// Import other components
 import EventGroupOverdued from './EventGroupOverdued';
 
+// Import Ant Design
+import { Space } from 'antd';
 
 
+
+// EventGroupsOverdued component
 const EventGroupsOverdued = (props) => {
     return (
         <Space direction="vertical" size="middle" style={{ display: 'flex' }}>

@@ -1,9 +1,14 @@
 import React from 'react';
-import { Space, Typography } from 'antd';
+
+// Import other components
 import EventUnitOverdued from './EventUnitOverdued.js';
+
+// Import Ant Design
+import { Space, Typography } from 'antd';
 const { Title } = Typography;
 
 
+// EventUnit component
 const EventGroupOverdued = (props) => {
     return (
         <>

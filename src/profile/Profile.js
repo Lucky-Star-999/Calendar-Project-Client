@@ -1,16 +1,24 @@
-import React, { useEffect } from 'react';
-import { Button, Form, Input, Space, Modal } from 'antd';
+import React, { useState, useEffect } from 'react';
 
-import { Layout, Typography } from 'antd';
-
-import Logo from '../img/Logo';
-import Search from '../img/Search';
-import { useState } from 'react';
+// Axios for API
 import axios from 'axios';
+
+// Redirect
 import { useNavigate } from 'react-router-dom';
+
+// Import app logo
+import Logo from '../img/Logo';
+
+// Import search icon
+import Search from '../img/Search';
+
+// Import Ant Design
+import { Button, Form, Input, Space, Modal, Layout, Typography } from 'antd';
 const { Header, Content } = Layout;
 const { Title } = Typography;
 
+
+// Profile component
 const Profile = () => {
 
     const navigate = useNavigate();

@@ -1,9 +1,14 @@
 import React from 'react';
-import { Space, Typography } from 'antd';
+
+// Import other components
 import EventUnitInvitationPending from './EventUnitInvitationPending';
+
+// Import Ant Design
+import { Space, Typography } from 'antd';
 const { Title } = Typography;
 
 
+// EventGroupInvitationPending component
 const EventGroupInvitationPending = (props) => {
     return (
         <>

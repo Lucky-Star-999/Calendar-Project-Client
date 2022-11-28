@@ -1,9 +1,17 @@
 import React from 'react';
-import { FiClock } from 'react-icons/fi';
+
+// Axios for API
 import axios from 'axios';
+
+// Import clock icon 
+import { FiClock } from 'react-icons/fi';
+
+// Import Ant Design
 import { Button, Card, Space, Typography } from 'antd';
 const { Title } = Typography;
 
+
+// EventUnitInvitation component
 function EventUnitInvitation(props) {
     const acceptInvitation = (event, eventid, email) => {
         event.preventDefault();

@@ -1,10 +1,20 @@
 import React from 'react';
+
+// Import clock icon 
 import { FiClock } from 'react-icons/fi';
+
+// Axios for API
 import axios from 'axios';
+
+// Redirect
 import { useNavigate } from "react-router-dom";
+
+// Import Ant Design
 import { Button, Card, Space, Typography } from 'antd';
 const { Title } = Typography;
 
+
+// EventUnit component
 function EventUnit(props) {
 
     const navigate = useNavigate();

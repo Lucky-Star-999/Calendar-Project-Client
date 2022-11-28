@@ -1,9 +1,13 @@
 import React from 'react';
-import { Space } from 'antd';
+
+// Import other components
 import EventGroup from './EventGroup';
 
+// Import Ant Design
+import { Space } from 'antd';
 
 
+// EventGroups component
 const EventGroups = (props) => {
     return (
         <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
