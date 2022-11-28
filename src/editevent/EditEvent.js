@@ -1,17 +1,25 @@
-import React, { useEffect } from 'react';
-import { Button, Form, Input, Space } from 'antd';
+import React, { useState, useEffect } from 'react';
 
-import { Layout, Menu, Typography } from 'antd';
-
-import Logo from '../img/Logo';
-import Search from '../img/Search';
-import { useState } from 'react';
-import TextArea from 'antd/es/input/TextArea';
+// Axios for API
 import axios from 'axios';
+
+// Redirect
 import { useNavigate } from 'react-router-dom';
+
+// Import app logo
+import Logo from '../img/Logo';
+
+// Import search icon
+import Search from '../img/Search';
+
+// Import Ant Design
+import { Button, Form, Input, Space, Layout, Menu, Typography } from 'antd';
+import TextArea from 'antd/es/input/TextArea';
 const { Header, Content, Sider } = Layout;
 const { Title } = Typography;
 
+
+// Function for menu in Ant Design
 function getItem(label, key, icon, children, type) {
     return {
         key,
@@ -22,6 +30,7 @@ function getItem(label, key, icon, children, type) {
     };
 }
 
+// Items for menu in Ant Design
 const items = [
     getItem('My schedule', '/home'),
     getItem('Invitations', '/invitations'),
@@ -30,19 +39,27 @@ const items = [
     getItem('Sign out', '/')
 ]
 
+// EditEvent component
 const EditEvent = () => {
-
     const navigate = useNavigate();
+
+    // Get email from localStorage
     const email = localStorage.getItem('calendar-booking-system-email');
+
+    // Get eventid from localStorage
     const eventid = localStorage.getItem('calendar-booking-system-eventid');
+
+    // States
     const [title, setTitle] = useState("");
     const [starttime, setStarttime] = useState("1300");
     const [endtime, setEndtime] = useState("");
     const [guestemails, setGuestemails] = useState("");
     const [description, setDescription] = useState("");
 
+    // useForm
     const [form] = Form.useForm();
 
+    // Redirect to Home
     const home = () => {
         navigate('/home');
     }
@@ -52,20 +69,17 @@ const EditEvent = () => {
             navigate('/');
         } else {
             window.scrollTo(0, 0);
-
             axios.get(`http://localhost:9000/event/eventid/${eventid}`)
                 .then(res => {
                     return res.data[0];
                 }).then(data => {
                     let startDateAndTime = data.starttime.split(" ");
                     let endDateAndTime = data.endtime.split(" ");
-
                     let starttime = startDateAndTime[0][6] + startDateAndTime[0][7]
                         + startDateAndTime[0][8] + startDateAndTime[0][9];
                     starttime += '-' + startDateAndTime[0][3] + startDateAndTime[0][4];
                     starttime += '-' + startDateAndTime[0][0] + startDateAndTime[0][1];
                     starttime += 'T' + startDateAndTime[1];
-
                     let endtime = endDateAndTime[0][6] + endDateAndTime[0][7]
                         + endDateAndTime[0][8] + endDateAndTime[0][9];
                     endtime += '-' + endDateAndTime[0][3] + endDateAndTime[0][4];
@@ -78,6 +92,7 @@ const EditEvent = () => {
                     if (data.guestemails === 'null') {
                         data.guestemails = "";
                     }
+
                     form.setFieldsValue({
                         title: data.title,
                         starttime: starttime,
@@ -92,10 +107,10 @@ const EditEvent = () => {
                     setGuestemails(data.guestemails || "");
                     setDescription(data.description || "");
                 });
-
         }
     }, [form, email, navigate, eventid]);
 
+    // Function will active if user press Submit
     const handleSubmit = (event) => {
         // Format starttime, endtime before submit
         let startDateAndTime = starttime.split("T");

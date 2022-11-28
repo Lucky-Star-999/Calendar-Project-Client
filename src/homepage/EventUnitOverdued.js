@@ -12,6 +12,8 @@ const { Title } = Typography;
 
 // EventUnitOverdued component
 function EventUnitOverdued(props) {
+
+    // Function will active if user press Delete the event
     const deleteEvent = (event, eventid) => {
         axios.delete(`http://localhost:9000/event/${eventid}`)
             .then(res => {

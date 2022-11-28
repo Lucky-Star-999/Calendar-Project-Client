@@ -16,14 +16,15 @@ const { Title } = Typography;
 
 // EventUnit component
 function EventUnit(props) {
-
     const navigate = useNavigate();
 
+    // Function will active if user press Submit
     const handleSubmit = (event, eventid) => {
         localStorage.setItem('calendar-booking-system-eventid', eventid);
         navigate("/edit-event");
     }
 
+    // Function will active if user press Delete the event
     const deleteEvent = (event, eventid) => {
         axios.delete(`http://localhost:9000/event/${eventid}`)
             .then(res => {

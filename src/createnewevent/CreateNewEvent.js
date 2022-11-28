@@ -36,21 +36,30 @@ const items = [
 
 // CreateNewEvent component
 const CreateNewEvent = () => {
-
     const navigate = useNavigate();
+
+    // Get email from localStorage
     const email = localStorage.getItem('calendar-booking-system-email');
+
+    // States
     const [title, setTitle] = useState("");
     const [starttime, setStarttime] = useState("1300");
     const [endtime, setEndtime] = useState("");
     const [guestemails, setGuestemails] = useState("");
     const [description, setDescription] = useState("");
 
-    const home = () => { navigate('/home'); }
+    // Redirect to Home
+    const home = () => {
+        navigate('/home');
+    }
 
     useEffect(() => {
-        if (email === null) { navigate('/'); }
+        if (email === null) {
+            navigate('/');
+        }
     }, [email, navigate]);
 
+    // Function will active if user press Submit
     const handleSubmit = (event) => {
         axios.post(`http://localhost:9000/event`, {
             hostemail: email,

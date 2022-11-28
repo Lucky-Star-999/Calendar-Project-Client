@@ -7,7 +7,6 @@ import EventGroupInvitationPending from './EventGroupInvitationPending';
 import { Space } from 'antd';
 
 
-
 // EventGroupsInvitationPending component
 const EventGroupsInvitationPending = (props) => {
     return (

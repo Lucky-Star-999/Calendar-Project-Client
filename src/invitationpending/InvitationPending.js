@@ -50,15 +50,17 @@ let listOfItems = [];
 function InvitationPending(route) {
     const navigate = useNavigate();
 
+    // States
+    const [data, setData] = useState("");
     const [keySearch, setKeySearch] = useState("");
 
+    // Get email from localStorage
     const email = localStorage.getItem('calendar-booking-system-email');
 
+    // Function will active if user type in the search bar
     const onSearch = (value) => {
         setKeySearch(value);
     }
-
-    const [data, setData] = useState("");
 
     useEffect(() => {
         if (email === null) {
@@ -71,10 +73,12 @@ function InvitationPending(route) {
         }
     }, [email, keySearch, navigate]);
 
+    // Format data before render
     listOfItems = getAllEvents(listOfItems, data, email);       // Get all events
     let listOfItemsNotOverdued = [];                            // Get not overdued events
     let listOfItemsOverdued = [];                               // Get overdued events
 
+    // Assign events to right type: not overdued, overdued events
     for (let i = 0; i < listOfItems.length; i++) {
         if (listOfItems[i].isoverdued === true) {
             listOfItemsOverdued.push(listOfItems[i]);

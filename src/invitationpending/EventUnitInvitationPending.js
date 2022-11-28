@@ -13,6 +13,7 @@ const { Title } = Typography;
 
 // EventUnitInvitation component
 function EventUnitInvitation(props) {
+    // Function will active if user press Accept
     const acceptInvitation = (event, eventid, email) => {
         event.preventDefault();
         axios.put(`http://localhost:9000/update/accept-invitation`, { eventid: eventid, email: email })
@@ -21,6 +22,7 @@ function EventUnitInvitation(props) {
             });
     }
 
+    // Function will active if user press Decline
     const declineInvitation = (event, eventid, email) => {
         axios.put(`http://localhost:9000/update/decline-invitation`, { eventid: eventid, email: email })
             .then(res => {

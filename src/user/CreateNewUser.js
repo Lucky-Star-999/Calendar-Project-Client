@@ -20,14 +20,17 @@ const { Title } = Typography;
 
 // CreateNewUser component
 const CreateNewUser = () => {
-
     const navigate = useNavigate();
 
+    // States
     const [email, setEmail] = useState("");
     const [fullname, setFullname] = useState("");
     const [password, setPassword] = useState("");
 
+    // State of modals
     const [open, setOpen] = useState(false);
+
+    // Functions to interact with Modals
     const showModal = () => {
         setOpen(true);
     };
@@ -35,10 +38,12 @@ const CreateNewUser = () => {
         setOpen(false);
     };
 
+    // Redirect to Login
     const home = () => {
         navigate('/');
     }
 
+    // Function will active if user press Submit
     const handleSubmit = (event) => {
         axios.post(`http://localhost:9000/user`, {
             email: email,

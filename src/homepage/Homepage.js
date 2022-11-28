@@ -23,7 +23,7 @@ const { Title } = Typography;
 const { Search } = Input;
 
 
-
+// Function for menu in Ant Design
 function getItem(label, key, icon, children, type) {
     return {
         key,
@@ -34,6 +34,7 @@ function getItem(label, key, icon, children, type) {
     };
 }
 
+// Items for menu in Ant Design
 const items = [
     getItem('My schedule', '/home'),
     getItem('Invitations', '/invitations'),
@@ -48,15 +49,19 @@ let listOfItems = [];
 function Homepage() {
     const navigate = useNavigate();
 
+    // States
     const [data, setData] = useState("");
     const [keySearch, setKeySearch] = useState("");
 
+    // Get email from localStorage
     const email = localStorage.getItem('calendar-booking-system-email');
 
+    // Redirect to Create new event
     const createNewEvent = () => {
         navigate('/create-new-event');
     }
 
+    // Function will active if user type in the search bar
     const onSearch = (value) => {
         setKeySearch(value);
     }
@@ -65,7 +70,6 @@ function Homepage() {
         if (email === null) {
             navigate('/');
         } else {
-            // Runs only on the first render
             axios.get(`http://localhost:9000/event/email`, { params: { email: email, keySearch: keySearch } })
                 .then(res => {
                     setData(res.data);
@@ -73,7 +77,7 @@ function Homepage() {
         }
     }, [email, keySearch, navigate]);
 
-
+    // Format data before render
     listOfItems = getAllEvents(listOfItems, data);      // Get all events
     let listOfItemsNotOverdued = [];                    // Get not overdued events
     let listOfItemsOverdued = [];                       // Get overdued events

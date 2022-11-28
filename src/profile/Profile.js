@@ -20,18 +20,21 @@ const { Title } = Typography;
 
 // Profile component
 const Profile = () => {
-
     const navigate = useNavigate();
 
+    // States
     const [email, setEmail] = useState("");
     const [fullname, setFullname] = useState("");
     const [password, setPassword] = useState("");
 
+    // useForm
     const [form] = Form.useForm();
 
+    // States of Modals
     const [open, setOpen] = useState(false);
     const [open2, setOpen2] = useState(false);
 
+    // Functions to interact with Modals
     const showModal = () => {
         setOpen(true);
     };
@@ -44,6 +47,8 @@ const Profile = () => {
     const hideModal2 = () => {
         setOpen2(false);
     };
+
+    // Redirect to Home
     const home = () => {
         navigate('/home');
     }
@@ -75,6 +80,7 @@ const Profile = () => {
         }
     }, [form, navigate]);
 
+    // Function will active if user press Submit
     const handleSubmit = (event) => {
         axios.put(`http://localhost:9000/user`, {
             email: email, password: password, fullname: fullname

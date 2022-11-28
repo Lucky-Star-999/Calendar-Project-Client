@@ -13,6 +13,7 @@ const { Title } = Typography;
 
 // EventUnit component
 function EventUnit(props) {
+    // Function will active if user press Delete the event
     const deleteEvent = (event, eventid, email) => {
         axios.delete(`http://localhost:9000/invitation/${eventid}/${email}`)
             .then(res => {

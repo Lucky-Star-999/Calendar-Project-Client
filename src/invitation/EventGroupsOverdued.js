@@ -7,7 +7,6 @@ import EventGroupOverdued from './EventGroupOverdued';
 import { Space } from 'antd';
 
 
-
 // EventGroupsOverdued component
 const EventGroupsOverdued = (props) => {
     return (

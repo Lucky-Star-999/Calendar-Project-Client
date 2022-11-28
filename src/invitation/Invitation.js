@@ -23,6 +23,7 @@ const { Title } = Typography;
 const { Search } = Input;
 
 
+// Function for menu in Ant Design
 function getItem(label, key, icon, children, type) {
     return {
         key,
@@ -33,6 +34,7 @@ function getItem(label, key, icon, children, type) {
     };
 }
 
+// Items for menu in Ant Design
 const items = [
     getItem('My schedule', '/home'),
     getItem('Invitations', '/invitations'),
@@ -45,14 +47,16 @@ let listOfItems = [];
 
 // Invitation component
 function Invitation() {
-    const [data, setData] = useState("");
-
     const navigate = useNavigate();
-    //const email = state.email;
+
+    // States
+    const [data, setData] = useState("");
     const [keySearch, setKeySearch] = useState("");
 
+    // Get email from localStorage
     const email = localStorage.getItem('calendar-booking-system-email');
 
+    // Function will active if user type in the search bar
     const onSearch = (value) => {
         setKeySearch(value);
     }
@@ -68,10 +72,12 @@ function Invitation() {
         }
     }, [email, navigate, keySearch]);
 
+    // Format data before render
     listOfItems = getAllEvents(listOfItems, data, email);       // Get all events
     let listOfItemsNotOverdued = [];                            // Get not overdued events
     let listOfItemsOverdued = [];                               // Get overdued events
 
+    // Assign events to right type: not overdued, overdued events
     for (let i = 0; i < listOfItems.length; i++) {
         if (listOfItems[i].isoverdued === true) {
             listOfItemsOverdued.push(listOfItems[i]);
