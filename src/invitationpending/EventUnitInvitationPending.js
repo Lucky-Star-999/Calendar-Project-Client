@@ -47,7 +47,6 @@ function EventUnitInvitation(props) {
                     Decline
                 </Button>
             </Space>
-
         </Card>
     );
 }

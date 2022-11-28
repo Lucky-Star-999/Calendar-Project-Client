@@ -59,9 +59,7 @@ let listOfItems = [
 
 listOfItems = [];
 
-
 function Invitation() {
-    ////////////////////////////////////////
     const [data, setData] = useState("");
 
     const navigate = useNavigate();
@@ -90,8 +88,6 @@ function Invitation() {
     listOfItems = getAllEvents(listOfItems, data, email);       // Get all events
     let listOfItemsNotOverdued = [];                            // Get not overdued events
     let listOfItemsOverdued = [];                               // Get overdued events
-
-
 
     for (let i = 0; i < listOfItems.length; i++) {
         if (listOfItems[i].isoverdued === true) {
@@ -145,10 +141,5 @@ function Invitation() {
         </Layout>
     );
 }
-
-/*const Homepage = () => (
-    
-);*/
-
 
 export default Invitation;

@@ -68,8 +68,4 @@ function getAllEvents(listOfItems, data, email) {
     return listOfItems;
 }
 
-
-
-
-
 export { eventRenderHandle, getListofDates, getAllEvents };

@@ -15,12 +15,6 @@ const { Title } = Typography;
 
 const { Search } = Input;
 
-
-
-
-
-
-
 function getItem(label, key, icon, children, type) {
     return {
         key,
@@ -61,9 +55,7 @@ listOfItems = [];
 
 
 function InvitationPending(route) {
-    ////////////////////////////////////////
     const navigate = useNavigate();
-    //const email = state.email;
 
     const [keySearch, setKeySearch] = useState("");
 
@@ -73,10 +65,7 @@ function InvitationPending(route) {
         setKeySearch(value);
     }
 
-
-
     const [data, setData] = useState("");
-    //const email = 'admin1@gmail.com';
 
     useEffect(() => {
         if (email === null) {
@@ -89,7 +78,6 @@ function InvitationPending(route) {
                 });
         }
     }, [email, keySearch, navigate]);
-
 
     listOfItems = getAllEvents(listOfItems, data, email);       // Get all events
     let listOfItemsNotOverdued = [];                            // Get not overdued events

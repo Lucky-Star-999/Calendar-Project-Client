@@ -11,11 +11,6 @@ import { useNavigate } from 'react-router-dom';
 const { Header, Content } = Layout;
 const { Title } = Typography;
 
-
-
-
-
-
 const Profile = () => {
 
     const navigate = useNavigate();
@@ -35,18 +30,15 @@ const Profile = () => {
     const hideModal = () => {
         setOpen(false);
     };
-
     const showModal2 = () => {
         setOpen2(true);
     };
     const hideModal2 = () => {
         setOpen2(false);
     };
-
     const home = () => {
         navigate('/home');
     }
-
     const deleteAccount = () => {
         axios.delete(`http://localhost:9000/user/${localStorage.getItem('calendar-booking-system-email')}`)
             .then(res => {
@@ -60,7 +52,6 @@ const Profile = () => {
         } else {
             window.scrollTo(0, 0);
 
-            // Runs only on the first render
             axios.get(`http://localhost:9000/user/${localStorage.getItem('calendar-booking-system-email')}`)
                 .then(res => {
                     return res.data[0];
@@ -73,28 +64,19 @@ const Profile = () => {
                     setEmail(data.email);
                     setFullname(data.fullname);
                 });
-
         }
     }, [form, navigate]);
 
     const handleSubmit = (event) => {
-        //event.preventDefault();
-
         axios.put(`http://localhost:9000/user`, {
             email: email, password: password, fullname: fullname
         })
             .then(res => {
-                console.log(res.data);
                 showModal();
             });
-
-        
     }
 
-
     return (
-
-
         <Layout>
             <Header style={{ padding: '25px', display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                 <Logo />
@@ -102,7 +84,6 @@ const Profile = () => {
             </Header>
             <Content>
                 <Layout>
-
                     <Modal
                         title="Updated successfully!"
                         open={open}
@@ -131,7 +112,7 @@ const Profile = () => {
                             minHeight: "100vh"
                         }}
                     >
-                        <Title level={2} style={{ margin: 0 }}>Create New Account</Title>
+                        <Title level={2} style={{ margin: 0 }}>My Account</Title>
 
                         <div style={{
                             minHeight: "100vh",
@@ -157,8 +138,6 @@ const Profile = () => {
                                     ]}
                                     onChange={(e) => setEmail(e.target.value)}
                                     value={email || ""}
-                                    
-
                                 >
                                     <Input placeholder="Email" disabled={true} />
                                 </Form.Item>
@@ -194,7 +173,6 @@ const Profile = () => {
                                     <Input.Password placeholder="Password" />
                                 </Form.Item>
 
-
                                 <Form.Item
                                     name="confirm"
                                     label="Confirm Password"
@@ -219,38 +197,18 @@ const Profile = () => {
                                 </Form.Item>
 
                                 <Form.Item label="     ">
-
                                     <Space size={18}>
-                                        <Button type="primary" htmlType="submit">
-                                            Save
-                                        </Button>
-
-                                        <Button onClick={home}>
-                                            Cancel
-                                        </Button>
-
-                                        <Button type="primary" danger onClick={showModal2}>
-                                            Delete your account!
-                                        </Button>
+                                        <Button type="primary" htmlType="submit">Save</Button>
+                                        <Button onClick={home}>Cancel</Button>
+                                        <Button type="primary" danger onClick={showModal2}>Delete your account!</Button>
                                     </Space>
                                 </Form.Item>
-
-
                             </Form>
-
                         </div>
                     </Content>
                 </Layout>
             </Content>
         </Layout>
-
-
-
-
-
-
-
-
     );
 };
 

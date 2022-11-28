@@ -13,14 +13,6 @@ const { Title } = Typography;
 
 const { Search } = Input;
 
-
-
-
-
-
-
-
-
 function getItem(label, key, icon, children, type) {
     return {
         key,
@@ -59,11 +51,7 @@ let listOfItems = [
 
 listOfItems = [];
 
-
-
-
 function Homepage() {
-    ////////////////////////////////////////
     const navigate = useNavigate();
 
     const [data, setData] = useState("");

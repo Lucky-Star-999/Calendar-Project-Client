@@ -5,11 +5,8 @@ function getListofDates(data) {
         date.push(data[i].startdate);
     }
 
-
     let arr = [];
-
     let newDate = [];
-
 
     for (let i = 0; i < date.length; i++) {
         arr.push(date[i].slice(6, 10) + date[i].slice(3, 5) + date[i].slice(0, 2));
@@ -26,10 +23,6 @@ function getListofDates(data) {
     return newDate;
 }
 
-function eventRenderHandle() {
-    //alert('Hello');
-}
-
 function getAllEvents(listOfItems, data) {
     const dates = getListofDates(data);
 
@@ -38,7 +31,6 @@ function getAllEvents(listOfItems, data) {
     for (let i = 0; i < dates.length; i++) {
         listOfItems[i] = {};
         listOfItems[i]["date"] = dates[i];
-
         listOfItems[i]["events"] = [];
 
         let count = 0;
@@ -71,4 +63,4 @@ function getAllEvents(listOfItems, data) {
 
 
 
-export { eventRenderHandle, getListofDates, getAllEvents };
+export { getListofDates, getAllEvents };

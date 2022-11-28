@@ -5,11 +5,9 @@ function getListofDates(data) {
         date.push(data[i].startdate);
     }
 
-
     let arr = [];
 
     let newDate = [];
-
 
     for (let i = 0; i < date.length; i++) {
         arr.push(date[i].slice(6, 10) + date[i].slice(3, 5) + date[i].slice(0, 2));
@@ -24,10 +22,6 @@ function getListofDates(data) {
     newDate = [...new Set(newDate)];
 
     return newDate;
-}
-
-function eventRenderHandle() {
-    //alert('Hello');
 }
 
 function getAllEvents(listOfItems, data, email) {
@@ -72,4 +66,4 @@ function getAllEvents(listOfItems, data, email) {
 
 
 
-export { eventRenderHandle, getListofDates, getAllEvents };
+export { getListofDates, getAllEvents };

@@ -52,45 +52,37 @@ const EditEvent = () => {
             navigate('/');
         } else {
             window.scrollTo(0, 0);
-
             // Runs only on the first render
             axios.get(`http://localhost:9000/event/eventid/${eventid}`)
                 .then(res => {
                     //setData(res.data);
                     return res.data[0];
                 }).then(data => {
-
-                    
-
                     let startDateAndTime = data.starttime.split(" ");
-
                     let endDateAndTime = data.endtime.split(" ");
 
-                    let starttime = startDateAndTime[0][6] + startDateAndTime[0][7] + startDateAndTime[0][8] + startDateAndTime[0][9];
+                    let starttime = startDateAndTime[0][6] + startDateAndTime[0][7]
+                        + startDateAndTime[0][8] + startDateAndTime[0][9];
                     starttime += '-' + startDateAndTime[0][3] + startDateAndTime[0][4];
                     starttime += '-' + startDateAndTime[0][0] + startDateAndTime[0][1];
                     starttime += 'T' + startDateAndTime[1];
 
-                    let endtime = endDateAndTime[0][6] + endDateAndTime[0][7] + endDateAndTime[0][8] + endDateAndTime[0][9];
+                    let endtime = endDateAndTime[0][6] + endDateAndTime[0][7]
+                        + endDateAndTime[0][8] + endDateAndTime[0][9];
                     endtime += '-' + endDateAndTime[0][3] + endDateAndTime[0][4];
                     endtime += '-' + endDateAndTime[0][0] + endDateAndTime[0][1];
                     endtime += 'T' + endDateAndTime[1];
-                    
+
                     if (data.description === 'null') {
-                        data.description= "";
+                        data.description = "";
                     }
-
                     if (data.guestemails === 'null') {
-                        data.guestemails= "";
+                        data.guestemails = "";
                     }
-
-
-
                     form.setFieldsValue({
                         title: data.title,
                         starttime: starttime,
                         endtime: endtime,
-
                         description: data.description,
                         guestemails: data.guestemails
                     });
@@ -106,32 +98,28 @@ const EditEvent = () => {
     }, [form, email, navigate, eventid]);
 
     const handleSubmit = (event) => {
-        //event.preventDefault();
-
-        // Format starttime, endtime
+        // Format starttime, endtime before submit
         let startDateAndTime = starttime.split("T");
         let formattedStarttime = startDateAndTime[0] + ' ' + startDateAndTime[1] + ':00+07';
         let endDateAndTime = endtime.split("T");
         let formattedEndtime = endDateAndTime[0] + ' ' + endDateAndTime[1] + ':00+07';
 
-
-        
-
         axios.put(`http://localhost:9000/event`, {
-            eventid: eventid, title: title, starttime: formattedStarttime, endtime: formattedEndtime,
-            description: description, guestemails: guestemails })
-            .then(res => {
-                navigate('/home');
-            });
-
+            eventid: eventid,
+            title: title,
+            starttime: formattedStarttime,
+            endtime: formattedEndtime,
+            description: description,
+            guestemails: guestemails
+        }).then(res => {
+            navigate('/home');
+        });
     }
 
-    
+
 
 
     return (
-
-
         <Layout>
             <Header style={{ padding: '25px', display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                 <Logo />
@@ -164,19 +152,20 @@ const EditEvent = () => {
                         }}
                     >
                         <Title level={2} style={{ margin: 0 }}>Edit Event</Title>
-
                         <div style={{
                             minHeight: "100vh",
                             display: "flex", justifyContent: "center", alignItems: "center"
                         }}>
-                            <Form autoComplete="off" onFinish={handleSubmit} style={{
-                                minHeight: "80vh", minWidth: "60vw"
-                            }}
+                            <Form
+                                autoComplete="off"
+                                onFinish={handleSubmit}
+                                style={{
+                                    minHeight: "80vh", minWidth: "60vw"
+                                }}
                                 labelCol={{ span: 4 }}
                                 wrapperCol={{ span: 14 }}
                                 form={form}
                             >
-
                                 <Form.Item
                                     label="Title"
                                     name="title"
@@ -192,68 +181,65 @@ const EditEvent = () => {
                                     <Input placeholder="Event title" />
                                 </Form.Item>
 
-                                <Form.Item label="Start time" name="starttime" rules={[
-                                    {
-                                        required: true,
-                                        message: 'Please input your starttime!',
-                                    }
+                                <Form.Item
+                                    label="Start time"
+                                    name="starttime"
+                                    rules={[
+                                        {
+                                            required: true,
+                                            message: 'Please input your starttime!',
+                                        }
 
-                                ]}
+                                    ]}
                                     onChange={(e) => setStarttime(e.target.value)}
                                     value={starttime || ""}
                                 >
                                     <Input type="datetime-local" id="starttime" name="starttime"></Input>
                                 </Form.Item>
 
-                                <Form.Item label="End time" name="endtime" rules={[
-                                    {
-                                        required: true,
-                                        message: 'Please input your endtime!',
-                                    }
-                                ]}
+                                <Form.Item
+                                    label="End time"
+                                    name="endtime"
+                                    rules={[
+                                        {
+                                            required: true,
+                                            message: 'Please input your endtime!',
+                                        }
+                                    ]}
                                     onChange={(e) => setEndtime(e.target.value)}
                                     value={endtime || ""}
                                 >
                                     <Input type="datetime-local" id="endtime" name="endtime"></Input>
                                 </Form.Item>
 
-                                <Form.Item label="Meeting description" name="description" onChange={(e) => setDescription(e.target.value)} value={description || ""}>
+                                <Form.Item
+                                    label="Meeting description"
+                                    name="description"
+                                    onChange={(e) => setDescription(e.target.value)}
+                                    value={description || ""}>
                                     <TextArea rows={4} placeholder="Enter your meeting description" />
                                 </Form.Item>
 
-                                <Form.Item label="Inviting critics" name="guestemails" onChange={(e) => setGuestemails(e.target.value)} value={guestemails || ""}>
+                                <Form.Item
+                                    label="Inviting critics"
+                                    name="guestemails"
+                                    onChange={(e) => setGuestemails(e.target.value)}
+                                    value={guestemails || ""}>
                                     <Input placeholder="a1@gmail.com a3@gmail.com a4@gmail.com (each email separated by a space)" />
                                 </Form.Item>
 
                                 <Form.Item label="     ">
-
                                     <Space size={18}>
-                                        <Button type="primary" htmlType="submit">
-                                            Save
-                                        </Button>
-
-                                        <Button onClick={home}>
-                                            Cancel
-                                        </Button>
+                                        <Button type="primary" htmlType="submit">Save</Button>
+                                        <Button onClick={home}>Cancel</Button>
                                     </Space>
                                 </Form.Item>
-
-
                             </Form>
-
                         </div>
                     </Content>
                 </Layout>
             </Content>
         </Layout>
-
-
-
-
-
-
-
-
     );
 };
 

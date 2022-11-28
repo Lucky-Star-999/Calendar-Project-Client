@@ -34,7 +34,6 @@ function EventUnitOverdued(props) {
             <Button danger onClick={(e) => deleteEvent(e, props.event.eventid, props.event.email)}>
                 Delete
             </Button>
-
         </Card>
     );
 }

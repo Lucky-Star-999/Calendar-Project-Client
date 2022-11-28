@@ -96,9 +96,12 @@ const CreateNewEvent = () => {
                             minHeight: "100vh",
                             display: "flex", justifyContent: "center", alignItems: "center"
                         }}>
-                            <Form autoComplete="off" onFinish={handleSubmit} style={{
-                                minHeight: "80vh", minWidth: "60vw"
-                            }}
+                            <Form
+                                autoComplete="off"
+                                onFinish={handleSubmit}
+                                style={{
+                                    minHeight: "80vh", minWidth: "60vw"
+                                }}
                                 labelCol={{ span: 4 }}
                                 wrapperCol={{ span: 14 }}
                             >

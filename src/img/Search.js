@@ -12,7 +12,6 @@ const Search = () => {
                 </clipPath>
             </defs>
         </svg>
-
     );
 }
 
