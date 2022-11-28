@@ -53,7 +53,6 @@ let listOfItems = [
 
 listOfItems = [];
 
-
 function InvitationPending(route) {
     const navigate = useNavigate();
 
@@ -71,7 +70,6 @@ function InvitationPending(route) {
         if (email === null) {
             navigate('/');
         } else {
-            // Runs only on the first render
             axios.get(`http://localhost:9000/event/pending-invitation`, { params: { email: email, keySearch: keySearch } })
                 .then(res => {
                     setData(res.data);
@@ -135,10 +133,5 @@ function InvitationPending(route) {
         </Layout>
     );
 }
-
-/*const Homepage = () => (
-    
-);*/
-
 
 export default InvitationPending;

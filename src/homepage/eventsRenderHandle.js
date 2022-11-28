@@ -59,8 +59,4 @@ function getAllEvents(listOfItems, data) {
     return listOfItems;
 }
 
-
-
-
-
 export { getListofDates, getAllEvents };

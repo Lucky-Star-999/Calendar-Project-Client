@@ -179,14 +179,6 @@ const CreateNewEvent = () => {
                 </Layout>
             </Content>
         </Layout>
-
-
-
-
-
-
-
-
     );
 };
 

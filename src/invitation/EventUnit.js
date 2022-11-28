@@ -5,12 +5,6 @@ import { Button, Card, Space, Typography } from 'antd';
 const { Title } = Typography;
 
 function EventUnit(props) {
-
-    const handleSubmit = (event, eventid) => {
-        console.log(eventid);
-        alert('Event Edit/Detail is coming soon!');
-    }
-
     const deleteEvent = (event, eventid, email) => {
         axios.delete(`http://localhost:9000/invitation/${eventid}/${email}`)
             .then(res => {
@@ -20,7 +14,7 @@ function EventUnit(props) {
 
     return (
         <Card bordered={false}>
-            <div onClick={(e) => handleSubmit(e, props.event.eventid)} style={{ cursor: 'pointer' }} id="event1">
+            <div>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <Title level={2} style={{ margin: 0 }}>{props.event.title}</Title>
                     <div style={{ display: "flex", alignItems: "center" }}>

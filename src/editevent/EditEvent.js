@@ -52,10 +52,9 @@ const EditEvent = () => {
             navigate('/');
         } else {
             window.scrollTo(0, 0);
-            // Runs only on the first render
+
             axios.get(`http://localhost:9000/event/eventid/${eventid}`)
                 .then(res => {
-                    //setData(res.data);
                     return res.data[0];
                 }).then(data => {
                     let startDateAndTime = data.starttime.split(" ");
@@ -115,9 +114,6 @@ const EditEvent = () => {
             navigate('/home');
         });
     }
-
-
-
 
     return (
         <Layout>

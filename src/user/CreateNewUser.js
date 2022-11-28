@@ -12,8 +12,6 @@ const { Header, Content } = Layout;
 const { Title } = Typography;
 
 
-
-
 const CreateNewUser = () => {
 
     const navigate = useNavigate();
@@ -35,26 +33,20 @@ const CreateNewUser = () => {
     }
 
     const handleSubmit = (event) => {
-        //event.preventDefault();
-
         axios.post(`http://localhost:9000/user`, {
-            email: email, password: password, fullname: fullname
-        })
-            .then(res => {
-                console.log(res.data);
-
-                if (res.data === 'Register successfully') {
-                    navigate('/create-user/result');
-                } else if (res.data === 'The email is existed') {
-                    showModal();
-                }
-            });
+            email: email,
+            password: password,
+            fullname: fullname
+        }).then(res => {
+            if (res.data === 'Register successfully') {
+                navigate('/create-user/result');
+            } else if (res.data === 'The email is existed') {
+                showModal();
+            }
+        });
     }
 
-
     return (
-
-
         <Layout>
             <Header style={{ padding: '25px', display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                 <Logo />
@@ -62,7 +54,6 @@ const CreateNewUser = () => {
             </Header>
             <Content>
                 <Layout>
-
                     <Modal
                         title="Duplicated Email"
                         open={open}
@@ -166,34 +157,17 @@ const CreateNewUser = () => {
                                 </Form.Item>
 
                                 <Form.Item label="     ">
-
                                     <Space size={18}>
-                                        <Button type="primary" htmlType="submit">
-                                            Create
-                                        </Button>
-
-                                        <Button onClick={home}>
-                                            Cancel
-                                        </Button>
+                                        <Button type="primary" htmlType="submit">Create</Button>
+                                        <Button onClick={home}>Cancel</Button>
                                     </Space>
                                 </Form.Item>
-
-
                             </Form>
-
                         </div>
                     </Content>
                 </Layout>
             </Content>
         </Layout>
-
-
-
-
-
-
-
-
     );
 };
 

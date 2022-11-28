@@ -4,7 +4,6 @@ import axios from 'axios';
 import { getAllEvents } from './eventsRenderHandle';
 import { Layout, Menu, Empty, Divider, Typography, Button, Input } from 'antd';
 import Logo from '../img/Logo';
-//import Search from '../img/Search';
 import { useNavigate } from "react-router-dom";
 import EventGroups from './EventGroups';
 import EventGroupsOverdued from './EventGroupsOverdued';

@@ -41,7 +41,6 @@ const Login = () => {
 
     axios.post(`http://localhost:9000/user/login`, { email, password })
       .then(res => {
-        console.log(res.data);
         localStorage.setItem('calendar-booking-system-email', email);
 
         if (res.data === 'Login successfully') {

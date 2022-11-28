@@ -16,11 +16,6 @@ const { Title } = Typography;
 const { Search } = Input;
 
 
-
-
-
-
-
 function getItem(label, key, icon, children, type) {
     return {
         key,
@@ -76,13 +71,11 @@ function Invitation() {
         if (email === null) {
             navigate('/');
         } else {
-            // Runs only on the first render
             axios.get(`http://localhost:9000/event/invitation/email`, { params: { email: email, keySearch: keySearch } })
                 .then(res => {
                     setData(res.data);
                 });
         }
-
     }, [email, navigate, keySearch]);
 
     listOfItems = getAllEvents(listOfItems, data, email);       // Get all events
