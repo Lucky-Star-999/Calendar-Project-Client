@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
+// Import domain
+import { domain } from '../configuration/apiDomain.js';
+
 // Axios for API
 import axios from 'axios';
 
@@ -69,7 +72,7 @@ const EditEvent = () => {
             navigate('/');
         } else {
             window.scrollTo(0, 0);
-            axios.get(`http://localhost:9000/event/eventid/${eventid}`)
+            axios.get(`${domain}/event/eventid/${eventid}`)
                 .then(res => {
                     return res.data[0];
                 }).then(data => {
@@ -118,7 +121,7 @@ const EditEvent = () => {
         let endDateAndTime = endtime.split("T");
         let formattedEndtime = endDateAndTime[0] + ' ' + endDateAndTime[1] + ':00+07';
 
-        axios.put(`http://localhost:9000/event`, {
+        axios.put(`${domain}/event`, {
             eventid: eventid,
             title: title,
             starttime: formattedStarttime,

@@ -15,6 +15,9 @@ import LoginLogo from "./LoginLogo.js";
 // Import Ant Design
 import { Button, Form, Input, Space, Modal } from 'antd';
 
+// Import domain
+import { domain } from '../configuration/apiDomain.js';
+
 
 // Login component
 const Login = () => {
@@ -53,7 +56,7 @@ const Login = () => {
 	// Function will active if user press Submit
 	const handleSubmit = (event) => {
 
-		axios.post(`http://localhost:9000/user/login`, { email, password })
+		axios.post(`${domain}/user/login`, { email, password })
 			.then(res => {
 				localStorage.setItem('calendar-booking-system-email', email);
 

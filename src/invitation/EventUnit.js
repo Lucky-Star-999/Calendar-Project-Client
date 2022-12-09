@@ -1,5 +1,8 @@
 import React from 'react';
 
+// Import domain
+import { domain } from '../configuration/apiDomain.js';
+
 // Axios for API
 import axios from 'axios';
 
@@ -15,7 +18,7 @@ const { Title } = Typography;
 function EventUnit(props) {
     // Function will active if user press Delete the event
     const deleteEvent = (event, eventid, email) => {
-        axios.delete(`http://localhost:9000/invitation/${eventid}/${email}`)
+        axios.delete(`${domain}/invitation/${eventid}/${email}`)
             .then(res => {
                 window.location.reload(false);
             });

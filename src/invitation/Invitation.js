@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
+// Import domain
+import { domain } from '../configuration/apiDomain.js';
+
 // Axios for API
 import axios from 'axios';
 
@@ -65,7 +68,7 @@ function Invitation() {
         if (email === null) {
             navigate('/');
         } else {
-            axios.get(`http://localhost:9000/event/invitation/email`, { params: { email: email, keySearch: keySearch } })
+            axios.get(`${domain}/event/invitation/email`, { params: { email: email, keySearch: keySearch } })
                 .then(res => {
                     setData(res.data);
                 });

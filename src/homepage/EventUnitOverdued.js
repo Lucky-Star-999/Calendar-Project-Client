@@ -1,5 +1,8 @@
 import React from 'react';
 
+// Import domain
+import { domain } from '../configuration/apiDomain.js';
+
 // Axios for API
 import axios from 'axios';
 
@@ -15,7 +18,7 @@ function EventUnitOverdued(props) {
 
     // Function will active if user press Delete the event
     const deleteEvent = (event, eventid) => {
-        axios.delete(`http://localhost:9000/event/${eventid}`)
+        axios.delete(`${domain}/event/${eventid}`)
             .then(res => {
                 window.location.reload(false);
             });

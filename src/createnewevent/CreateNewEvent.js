@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
+// Import domain
+import { domain } from '../configuration/apiDomain.js';
+
 // Redirect
 import { useNavigate } from 'react-router-dom';
 
@@ -13,6 +16,7 @@ import Search from '../img/Search';
 import TextArea from 'antd/es/input/TextArea';
 const { Header, Content, Sider } = Layout;
 const { Title } = Typography;
+
 
 // Function for menu in Ant Design
 function getItem(label, key, icon, children, type) {
@@ -61,7 +65,7 @@ const CreateNewEvent = () => {
 
     // Function will active if user press Submit
     const handleSubmit = (event) => {
-        axios.post(`http://localhost:9000/event`, {
+        axios.post(`${domain}/event`, {
             hostemail: email,
             title: title,
             starttime: starttime,

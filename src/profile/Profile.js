@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
+// Import domain
+import { domain } from '../configuration/apiDomain.js';
+
 // Axios for API
 import axios from 'axios';
 
@@ -53,7 +56,7 @@ const Profile = () => {
         navigate('/home');
     }
     const deleteAccount = () => {
-        axios.delete(`http://localhost:9000/user/${localStorage.getItem('calendar-booking-system-email')}`)
+        axios.delete(`${domain}/user/${localStorage.getItem('calendar-booking-system-email')}`)
             .then(res => {
                 navigate('/');
             });
@@ -65,7 +68,7 @@ const Profile = () => {
         } else {
             window.scrollTo(0, 0);
 
-            axios.get(`http://localhost:9000/user/${localStorage.getItem('calendar-booking-system-email')}`)
+            axios.get(`${domain}/user/${localStorage.getItem('calendar-booking-system-email')}`)
                 .then(res => {
                     return res.data[0];
                 }).then(data => {
@@ -82,7 +85,7 @@ const Profile = () => {
 
     // Function will active if user press Submit
     const handleSubmit = (event) => {
-        axios.put(`http://localhost:9000/user`, {
+        axios.put(`${domain}/user`, {
             email: email, password: password, fullname: fullname
         })
             .then(res => {

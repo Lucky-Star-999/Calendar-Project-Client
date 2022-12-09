@@ -1,5 +1,8 @@
 import React from 'react';
 
+// Import domain
+import { domain } from '../configuration/apiDomain.js';
+
 // Axios for API
 import axios from 'axios';
 
@@ -16,7 +19,7 @@ function EventUnitInvitation(props) {
     // Function will active if user press Accept
     const acceptInvitation = (event, eventid, email) => {
         event.preventDefault();
-        axios.put(`http://localhost:9000/update/accept-invitation`, { eventid: eventid, email: email })
+        axios.put(`${domain}/update/accept-invitation`, { eventid: eventid, email: email })
             .then(res => {
                 window.location.reload(false);
             });
@@ -24,7 +27,7 @@ function EventUnitInvitation(props) {
 
     // Function will active if user press Decline
     const declineInvitation = (event, eventid, email) => {
-        axios.put(`http://localhost:9000/update/decline-invitation`, { eventid: eventid, email: email })
+        axios.put(`${domain}/update/decline-invitation`, { eventid: eventid, email: email })
             .then(res => {
                 window.location.reload(false);
             });

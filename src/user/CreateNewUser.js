@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 
+// Import domain
+import { domain } from '../configuration/apiDomain.js';
+
 // Axios for API
 import axios from 'axios';
 
@@ -45,7 +48,7 @@ const CreateNewUser = () => {
 
     // Function will active if user press Submit
     const handleSubmit = (event) => {
-        axios.post(`http://localhost:9000/user`, {
+        axios.post(`${domain}/user`, {
             email: email,
             password: password,
             fullname: fullname
