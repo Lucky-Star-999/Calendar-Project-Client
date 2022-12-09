@@ -1,5 +1,5 @@
 function getApiDomain() {
-    let isLocalhost = false;
+    let isLocalhost = true;
 
     let domain = '';
 
